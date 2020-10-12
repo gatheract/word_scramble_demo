@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script type="module" src="https://gatheract.com/api.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+        <div id="app" :class="status" >
+			<draggable class="word" v-model="state.word" group="people" @start="drag=true" @end="drag=false">
+				<div class="letter" v-for="element in state.word" :key="element">{{element}}</div>
+			</draggable>
+
+			<draggable class="choices" v-model="state.letters" group="people" @start="drag=true" @end="drag=false">
+				<div class="letter" v-for="element in state.letters" :key="element">{{element}}</div>
+			</draggable>
+
+			<div id="refresh" @click="state.refresh">
+				<i class="fa fa-refresh" style="font-size:48px;"></i>
+			</div>
+		</div>
+		
+		<script src="app.js"></script>
+		<script src="gatheract.js"></script>
+
+	</body>
+</html>
