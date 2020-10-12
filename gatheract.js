@@ -6,7 +6,7 @@ function sendGuess(){
             letters: state.letters
         }
     }
-    gatheract.sendAppMessage(data);
+    gatheract.sendMessage(data);
 }
 
 let config = {

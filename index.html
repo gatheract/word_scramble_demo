@@ -9,11 +9,11 @@
 	</head>
 	<body>
         <div id="app" :class="status" >
-			<draggable class="word" v-model="state.word" group="people" @start="drag=true" @end="drag=false">
+			<draggable class="word" v-model="state.word" group="word" @start="drag=true" @end="dragEnd">
 				<div class="letter" v-for="element in state.word" :key="element">{{element}}</div>
 			</draggable>
 
-			<draggable class="choices" v-model="state.letters" group="people" @start="drag=true" @end="drag=false">
+			<draggable class="choices" v-model="state.letters" group="word" @start="drag=true" @end="dragEnd">
 				<div class="letter" v-for="element in state.letters" :key="element">{{element}}</div>
 			</draggable>
 
