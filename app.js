@@ -1,20 +1,20 @@
 words = [
-  "tree",
+  "spell",
   "shoes",
-  "needle",
+  "joke",
   "wave",
-  "direction",
+  "words",
   "food",
   "thread",
-  "vacation",
+  "fast",
   "shirt",
-  "driving",
+  "drive",
   "step",
-  "science",
+  "shaft",
   "glass",
   "can",
   "whistle",
-  "connection",
+  "tree",
   "purpose",
   "tongue",
   "van",
@@ -37,8 +37,13 @@ state = {
   letters: mix(words[0].toUpperCase().split("")),
   refresh: function () {
     state.word = [];
-    state.goal = words[Math.floor(Math.random() * words.length)].toUpperCase();
-    state.letters = mix(state.goal.split(""));
+    state.letters = [];
+    Vue.nextTick(function () {
+      state.goal = words[Math.floor(Math.random() * words.length)].toUpperCase();
+      state.letters = mix(state.goal.split(""));
+    })
+    
+    sendGuess();
   },
 };
 new Vue({
@@ -56,9 +61,9 @@ new Vue({
     },
   },
   methods: {
-      dragEnd() {
-        drag = false;
-        sendGuess();
-      }
-  }
+    dragEnd() {
+      drag = false;
+      sendGuess();
+    },
+  },
 });
