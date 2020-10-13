@@ -20,6 +20,7 @@
 .word {
   display: flex;
   padding: 10px;
+  margin-bottom: 100px;
   min-width: 30%;
   min-height: 93px;
   justify-content: center;
