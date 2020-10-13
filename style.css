@@ -39,6 +39,7 @@
   background-color: #ebf2fa;
 }
 
+/* Apply random rotation to the letters to make them look fun! */
 .choices .letter:nth-of-type(1) {
   transform: rotate(-3deg);
 }
