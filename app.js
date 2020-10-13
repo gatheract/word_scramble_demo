@@ -31,18 +31,28 @@ function mix(array) {
   return array;
 }
 
+function updateLetters(isNew, word, letters) {
+  state.word = [];
+  state.letters = [];
+  Vue.nextTick(function () {
+    if(isNew) {
+      // user licked refresh button
+      state.goal = word;
+      state.letters = mix(state.goal.split(""));
+    } else {
+      // message from another user
+      state.word = word;
+      state.letters = letters;
+    }
+  })
+}
+
 state = {
   goal: words[0].toUpperCase(),
   word: [],
   letters: mix(words[0].toUpperCase().split("")),
   refresh: function () {
-    state.word = [];
-    state.letters = [];
-    Vue.nextTick(function () {
-      state.goal = words[Math.floor(Math.random() * words.length)].toUpperCase();
-      state.letters = mix(state.goal.split(""));
-    })
-    
+    updateLetters(1, words[Math.floor(Math.random() * words.length)].toUpperCase());
     sendGuess();
   },
 };
