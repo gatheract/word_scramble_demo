@@ -1,38 +1,10 @@
 // A simple list of words that will be randomly chosen and scrambled
 words = [
-  "spell",
-  "shoes",
-  "joke",
-  "wave",
-  "words",
-  "food",
-  "thread",
-  "fast",
-  "shirt",
-  "drive",
-  "step",
-  "shaft",
-  "glass",
-  "can",
-  "whistle",
-  "tree",
-  "purpose",
-  "tongue",
-  "van",
-  "record",
+  "spell", "shoes", "joke", "wave", "words",
+  "food", "thread", "fast", "shirt", "drive",
+  "step", "shaft", "glass", "can", "whistle",
+  "tree", "purpose", "tongue", "van", "record"
 ];
-
-// A simple function that takes an array of letters and mixes/shuffles their order
-// This is ised to generate the shuffled letters at the bottom of the screen
-function mix(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * i);
-    const temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-  return array;
-}
 
 // Take the new word and update the state with that word and the shuffled letter for the user to guess
 function updateLetters(isNew, word, letters) {
@@ -45,7 +17,7 @@ function updateLetters(isNew, word, letters) {
       // isNew=1 when user clicked refresh button
       state.goal = word;
       // randomize the display of the letter choices
-      state.letters = mix(state.goal.split(""));
+      state.letters = state.goal.split("").sort(() => Math.random() - 0.5);
     } else {
       // message from another user
       state.word = word;
@@ -64,11 +36,11 @@ state = {
   letters: [],
   // A function called when the user clicks the 'new word' button in the top right corner
   refresh: function () {
-    updateLetters(
-      1,
-      words[Math.floor(Math.random() * words.length)].toUpperCase()
-    );
-    sendGuess();
+    updateLetters(1, words[Math.floor(Math.random() * words.length)].toUpperCase());
+    Vue.nextTick(function () {
+      // We send the guess inside a nextTick to ensure the new data is valid before sending it out
+      sendGuess();
+    })
   },
 };
 
@@ -79,10 +51,7 @@ new Vue({
   },
   mounted: function () {
     // When the page first loads, initialize with a new random word
-    updateLetters(
-      1,
-      words[Math.floor(Math.random() * words.length)].toUpperCase()
-    );
+    updateLetters(1, words[Math.floor(Math.random() * words.length)].toUpperCase());
   },
   computed: {
     // this method is called vy VUE to set a class in the main app that sets the 

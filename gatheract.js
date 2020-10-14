@@ -1,35 +1,50 @@
+// This function broadcasts the state from this local client to all other users in the channel
 function sendGuess() {
-  let data = {
-    type: "guess",
-    state: {
-      word: state.word,
-      letters: state.letters,
-    },
-  };
-  gatheract.sendMessage(data);
+    // Configure the packet to be sent
+    let data = {
+        type: "guess",
+        state: {
+            goal: state.goal,
+            word: state.word,
+            letters: state.letters,
+        },
+    };
+    // Broadcast the message to all users in the channel
+    gatheract.sendMessage(data);
 }
 
+// Configure GatherAct API
 let config = {
-  app_id: "wordguess",
-  events: {
-    connected: (event) => {
-      if (gatheract.is_host && user.id != gatheract.user.id) {
-        sendGuess();
-      }
+    // This should be a unique ID for your app.
+    // For development purposes we can set it to anything.
+    appId: 'wordguess',
+    events: {
+        // The 'connected' even get fired every time a new user connects to the channel
+        // In this demo, we don't need to use this event.
+        connected: event => {
+            console.log(event);
+        },
+        // The 'channelInfo' event fires when a user is added or removed from the channel
+        // If the event is due to a newUsers, and we are the host, we broadcast the game state.
+        channelInfo: event => {
+            if (event.newUser && gatheract.isHost) {
+                sendGuess();
+            }
+        },
+        // The 'appMessage' event fires when we receive a message from another app instance.
+        appMessage: event => {
+            // In this app, we only have one message which is sent from 'sendGuess()'
+            // The if statement is redundent here as there will only even be one type of appMessage
+            // but it makes the code more readable for this demo
+            if (event.data.type === "guess") {
+                state.goal = event.data.state.goal;
+                state.word = event.data.state.word;
+                state.letters = event.data.state.letters;
+            }
+        },
     },
-    channel_info: (event) => {
-      if (event.new_user && gatheract.is_host && user.id != gatheract.user.id) {
-        sendGuess();
-      }
-    },
-    app_message: (event) => {
-      if (event.data.type === "guess") {
-        state.word = event.data.state.word;
-        state.letters = event.data.state.letters;
-      }
-    },
-  },
 };
-document.addEventListener("DOMContentLoaded", async () => {
-  gatheract.init(config);
-});
+
+// Here we initialize the gatheract API. You can see more info by
+// inspecting the gatheract global variable in the Javascript console.
+gatheract.init(config);
