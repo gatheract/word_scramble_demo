@@ -37,6 +37,7 @@ state = {
   },
 };
 
+// Initialize Vue
 new Vue({
   el: "#app",
   data: {
