@@ -2,8 +2,8 @@
 words = [
   "spell", "shoes", "joke", "wave", "words",
   "food", "thread", "fast", "shirt", "drive",
-  "step", "shaft", "glass", "can", "whistle",
-  "tree", "purpose", "tongue", "van", "record"
+  "step", "shaft", "glass", "gather", "whistle",
+  "tree", "purpose", "tongue", "act", "record"
 ];
 
 // Take the new word and update the state with that word and the shuffled letter for the user to guess
@@ -15,7 +15,7 @@ function updateLetters(word) {
   Vue.nextTick(function () {
       state.goal = word;
       // randomize the display of the letter choices
-      state.letters = state.goal.split("").sort(() => Math.random() - 0.5);
+      state.letters = word.split("").sort(() => Math.random() - 0.5);
   });
 }
 
@@ -61,6 +61,7 @@ new Vue({
     // This method is called by the Vue.Draggable components when the user finished dragging a letter
     dragEnd() {
       drag = false;
+      // After the drag finished (even if nothing changed) we broadcast the new state
       sendGuess();
     },
   },

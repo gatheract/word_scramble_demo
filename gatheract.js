@@ -22,7 +22,6 @@ let config = {
         // The 'connected' even get fired every time a new user connects to the channel
         // In this demo, we don't need to use this event.
         connected: event => {
-            console.log(event);
         },
         // The 'channelInfo' event fires when a user is added or removed from the channel
         // If the event is due to a newUsers, and we are the host, we broadcast the game state.
