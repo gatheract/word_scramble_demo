@@ -5,7 +5,7 @@ A GatherAct demo app that shows the basics of real-time collaborative programmin
 
 # How to use this demo
 1. Clone this repo
-1. Give the app a unique ID for sandbox testing. It cna be literally anything you feel is unique enough.
+2. Give the app a unique ID for sandbox testing by editing `gatheract.js`. It can be literally anything you feel is unique enough.
 ```diff
 let config = {
     // This should be a unique ID for your app.
@@ -14,5 +14,5 @@ let config = {
 +   appId: 'joes_test_app_1322',
     events: {
 ```
-1. Open index.html in your web browser on your local computer. No web server needed.
-1. Open index.html in another web browser window
+3. Open index.html in your web browser on your local computer. No web server needed.
+4. Open index.html in another web browser window
