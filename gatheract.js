@@ -1,5 +1,6 @@
 // This function broadcasts the state from this local client to all other users in the channel
-function sendGuess() {
+// If 'user' is non-null, the message will only be sent to a specific user
+function sendGuess(user) {
     // Configure the packet to be sent
     let data = {
         type: "guess",
@@ -10,7 +11,7 @@ function sendGuess() {
         },
     };
     // Broadcast the message to all users in the channel
-    gatheract.sendMessage(data);
+    gatheract.sendMessage(data, user);
 }
 
 // Configure GatherAct API
@@ -27,7 +28,7 @@ let config = {
         // If the event is due to a newUsers, and we are the host, we broadcast the game state.
         channelInfo: event => {
             if (event.newUser && gatheract.isHost) {
-                sendGuess();
+                sendGuess(event.newUser.id);
             }
         },
         // The 'appMessage' event fires when we receive a message from another app instance.
