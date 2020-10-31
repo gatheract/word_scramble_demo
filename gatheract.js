@@ -27,9 +27,12 @@ let config = {
     // For development purposes we can set it to anything.
     appId: '<ENTER_UNIQUE_APP_NAME_HERE>',
     events: {
-        // The 'connected' even get fired every time a new user connects to the channel
-        // In this demo, we don't need to use this event.
+        // The 'connected' event get fired every time a this user connects to the channel
         connected: event => {
+            // Send out the state in case a non-host joined before the host
+            if (gatheract.isHost) {
+                sendGuess();
+            }
         },
         // The 'channelInfo' event fires when a user is added or removed from the channel
         // If the event is due to a newUsers, and we are the host, we broadcast the game state.
