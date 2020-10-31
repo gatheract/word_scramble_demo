@@ -10,13 +10,13 @@
 
   <body>
     <div id="app" :class="status">
-      <draggable class="word" v-model="state.word" group="word" @start="drag=true" @end="dragEnd">
+      <draggable class="word" v-model="state.word" group="word" @start="dragStart" @end="dragEnd">
         <div class="letter" v-for="element in state.word" :key="element">
           {{element}}
         </div>
       </draggable>
 
-      <draggable class="choices" v-model="state.letters" group="word" @start="drag=true" @end="dragEnd">
+      <draggable class="choices" v-model="state.letters" group="word" @start="dragStart" @end="dragEnd">
         <div class="letter" v-for="element in state.letters" :key="element">
           {{element}}
         </div>

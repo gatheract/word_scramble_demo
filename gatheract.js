@@ -14,6 +14,12 @@ function sendGuess(user) {
     gatheract.sendMessage(data, user);
 }
 
+function updateGuess(newState) {
+    state.goal = newState.goal;
+    state.word = newState.word;
+    state.letters = newState.letters;
+}
+
 // Configure GatherAct API
 let config = {
     // This should be a unique ID for your app.
@@ -37,9 +43,12 @@ let config = {
             // The if statement is redundent here as there will only even be one type of appMessage
             // but it makes the code more readable for this demo
             if (event.data.type === "guess") {
-                state.goal = event.data.state.goal;
-                state.word = event.data.state.word;
-                state.letters = event.data.state.letters;
+                state.newMessage = event.data.state;
+                // only update state if user is not in the middle of a drag, otherwise we save it for after the drag is complete
+                if(!state.drag) {
+                    updateGuess(state.newMessage);
+                    state.newMessage = "";
+                }
             }
         },
     },
