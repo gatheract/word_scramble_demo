@@ -14,6 +14,7 @@ function sendGuess(user) {
     gatheract.sendMessage(data, user);
 }
 
+// Take a guess from another user and update the state
 function updateGuess(newState) {
     state.goal = newState.goal;
     state.word = newState.word;
