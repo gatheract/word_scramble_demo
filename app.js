@@ -73,7 +73,7 @@ new Vue({
       // If someone sent an update we have to take that update and ignore the last user drag
       if (state.newMessage) {
         updateGuess(state.newMessage)
-        state.newMessage = "";
+        state.newMessage = null;
       } else {
         // After the drag finished (even if nothing changed) we broadcast the new state
         sendGuess();
