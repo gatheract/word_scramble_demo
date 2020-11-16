@@ -42,14 +42,14 @@ let config = {
             }
         },
         // The 'appMessage' event fires when we receive a message from another app instance.
-        appMessage: event => {
+        appMessage: (data, from) => {
             // In this app, we only have one message which is sent from 'sendGuess()'
-            // The if statement is redundent here as there will only even be one type of appMessage
+            // The if statement is redundant here as there will only even be one type of appMessage
             // but it makes the code more readable for this demo
-            if (event.data.type === "guess") {
-                state.newMessage = event.data.state;
+            if (data.type === "guess") {
+                state.newMessage = data.state;
                 // only update state if user is not in the middle of a drag, otherwise we save it for after the drag is complete
-                if(!state.drag) {
+                if (!state.drag) {
                     updateGuess(state.newMessage);
                     state.newMessage = "";
                 }
