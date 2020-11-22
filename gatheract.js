@@ -38,7 +38,7 @@ let config = {
         // If the event is due to a newUsers, and we are the host, we broadcast the game state.
         channelInfo: event => {
             if (event.newUser && gatheract.isHost) {
-                sendGuess(event.newUser.id);
+                sendGuess(Array(event.newUser.id));
             }
         },
         // The 'appMessage' event fires when we receive a message from another app instance.
