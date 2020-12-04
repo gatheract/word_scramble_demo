@@ -37,6 +37,7 @@
   width: 100%;
   min-height: 93px;
   background-color: #ebf4ff;
+  box-sizing: border-box;
 }
 
 /* Apply random rotation to the letters to make them look fun! */
